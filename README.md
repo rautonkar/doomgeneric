@@ -1,12 +1,12 @@
 
-# Verifying operation
-1. Grab an EK-RA8D1. 
-2. If you've been using the kit before, locate and change all jumper settings back to the default per the Kit User's manual.
+# Chapter 1. Unleashing Doomguy
+1. Grab an [EK-RA8D1](https://renesas.com/ek-ra8d1). 
+2. If you've been using the kit before, locate and change all jumper settings back to the default per the [Kit User's manual](https://www.renesas.com/us/en/document/mat/ek-ra8d1-v1-users-manual?r=25452351).
 3. Turn off power, and then toggle all switches of SW1 to OFF. Set SW1-3 and SW1-8 to ON. Plug in the LCD.
-4. Open Renesas Flash Programmer > Initialize Device > Set DLM State to OEM_PL2 > Program an SREC file along with TrustZone boundary settings (.rpd file)
-5. Enjoy! Use Teraterm to connect to the JLink CDC UART port to view some logs.
+4. Open [Renesas Flash Programmer](https://renesas.com/rfp) (v3.13 or above) > Initialize Device > Set DLM State to `OEM_PL2` > Program an SREC file from the release assets along with TrustZone boundary settings (.rpd file)
+5. Power cycle the board to unleash carnage. Use Teraterm to connect to the JLink CDC UART port to view some logs.
 
-# Challenges / TODO
+# Chapter 2. Challenges / TODO
 Below are some of the left over challenges to which you can contribute. Send me a Pull Request, with a write-up/explanation of what's changed, and I'll merge it in for the greater good. Ultimate goal is to stay above 60+ fps.
 - [ ] **!BUG**: Fix the hang issue
       This *may* be a problem with long term operation of the USB stack. The EK-RA8D1 & EK-RA8M1 quickstart examples seem to behave the same; i.e. dead USB communication after operating for a long time. Kit information doesn't update.
@@ -22,12 +22,12 @@ Below are some of the left over challenges to which you can contribute. Send me 
 - [ ] **Hardware Acceleration**: Remove use of `cmap_to_fb` in `I_FinishUpdate` and use DAVE2D's Color Look Up Tables (CLUT)
 - [ ] **Hardware Acceleration**:Transition entire project from GCC to LLVM and enable Helium instruction-set for more performance
 - [ ] **Hardware Acceleration**: Integrate DRW to draw primitives instead of using the CPU
-- [ ] **Hardware Design**: Design game-boy console like board. 
+- [ ] **Hardware Design**: Design gameboy-like console with the ability to drop in some new WADs
 	- [ ] Overcome 16-bit SDRAM limitation on EK-RA8D1. The 16-bit bus means 1/2 the max achievable data-rate
-	- [ ] Add in a Renesas/Dialog WiFi module over a high-throughput interface
+	- [ ] Add in a Renesas/Dialog WiFi module over a high-throughput interface.
 	- [ ] Add hardware for sound (input & output) using a Renesas/Dialog Codec IC.
 
-# Notes
+# Chapter 3. The Journey
 Upon it's release in December 10, 1993, DOOM was known for its advanced graphics and 3D environments, and it quickly became a benchmark for testing the performance of new computer hardware. As technology progressed, the question "Can it run DOOM?" became a humorous way to ask whether a device or system, regardless of its intended purpose, was powerful enough to handle the game.
 
 Over the years, the phrase has evolved into a meme and is often used in a lighthearted manner to inquire about the capabilities of various devices, ranging from smartphones to kitchen appliances. It reflects the historical significance of DOOM as a demanding and iconic piece of software that has been adapted to run on a wide variety of platforms.
@@ -54,7 +54,7 @@ The first step in building get an existing application functional is to get it t
 
 From understanding the needs of gaming, it made sense to throw an RTOS to allow for modularity, and managing timing. ThreadX was the choice since it also comes with a bunch of other modules like FileX which would be helpful for reading the WAD files.
 
-Unfortunately, the FSP with RA8D1 doesn't allow for creating a USB Mass Storage Controller drive on the plenty big OSPI. So, I worked around it using FileX over USBX MSC Host. It's a hefty price to pay; but hey, it's a PoC. Other components I'd need would be to operate the GLCDC with MIPI DSI screen. Fortunately, there's are ready made [examples](https://github.com/renesas/ra-fsp-examples/tree/master/example_projects/ek_ra8d1) showing off most components, H/W & S/W, for the RA8D1.
+Unfortunately, the FSP with RA8D1 doesn't allow for creating a USB Mass Storage Controller drive on the plenty big OSPI. So, I worked around it using FileX over USBX MSC Host. It's a hefty price to pay; but hey, it's a PoC. Other components I'd need would be to operate the GLCDC with MIPI DSI screen. Fortunately, there's are [ready-to-use examples](https://github.com/renesas/ra-fsp-examples/tree/master/example_projects/ek_ra8d1) showing off most components, H/W & S/W, for the RA8D1.
 
 Initial PoC operation should be simple:
 1. User puts a WAD onto a USB drive from a PC
