@@ -48,7 +48,7 @@ rcsid[] = "$Id: i_x.c,v 1.6 1997/02/03 22:45:10 b1 Exp $";
 #include <sys/types.h>
 
 //#define CMAP256
-#// define ROTATE_SCREENBUFFER  // Needs testing at resolution > 320 * 200
+//#define ROTATE_SCREENBUFFER  // Needs testing at resolution > 320 * 200
 
 struct FB_BitField
 {
