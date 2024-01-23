@@ -3,6 +3,11 @@
 *.DS_Store
 *.log
 *.user
-.vs/
-Debug/
-Release/
+.vs
+.settings
+ra
+ra_cfg
+ra_gen
+Debug
+Release
+ReleaseO2
